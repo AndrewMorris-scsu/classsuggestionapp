@@ -1,15 +1,13 @@
 (function () {
-$(document).ready(function () {
-  $('a#fetch_data').bind('click', function() {
-    console.log($SCRIPT_ROOT);
-    console.log('test');
-    $.getJSON($SCRIPT_ROOT + 'api/fetch_data', {
-      val: $('input[name="filter"]').val()
-    }, function(data) {
-      $("#result").text(data);
+  $(document).ready(function () {
+    $('button#fetch_data').bind('click', function() {
+      $.post($SCRIPT_ROOT + 'api/fetch_data', {
+        data: $('input[name="filter"]').val()
+      }).done(function(data) {
+        $("#result").text(data);
+      }).fail(function() {
+        $("#result").text("FAILED");
+      });
     });
-    return false;
   });
-});
-
 })();
