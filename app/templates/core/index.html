@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
-    <title>Class Suggester</title>
-    <link href="/static/css/main.css" rel="stylesheet"></link>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="http://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
-    <script type=text/javascript charset="utf-8">
-      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-    </script>
-  </head>
-  <body>
-    <script src="static/js/main.js" charset="utf-8"></script>
-    <h1>jQuery Example</h1>
-    <p><input type=text name="filter">
-    <p><a href=# id="fetch_data">fetch data</a>
-    <span id=result>?</span>
-  </body>
-</html>
+{% extends "core/base.html" %}
+
+{% block content %}
+<script src="static/js/main.js" charset="utf-8"></script>
+<h1>jQuery Example</h1>
+<span>Filter Class<input name="filter"></span>
+<button id="fetch_data">Get Classes</button>
+<span id=result>?</span>
+{% endblock %}

@@ -2,4 +2,4 @@ from flask import (
     Blueprint
 )
 api = Blueprint('api', __name__, url_prefix='/api')
-from . import routes, events, model
+from . import routes, model

@@ -1,14 +1,11 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
-from flask_socketio import SocketIO
 
-# Define the WSGI application object
 app = Flask(__name__)
 
 app.config.from_object('config')
 
 db = SQLAlchemy(app)
-socketio = SocketIO(app)
 
 from .mod_core import core as core_module
 from .mod_api import api as api_module
