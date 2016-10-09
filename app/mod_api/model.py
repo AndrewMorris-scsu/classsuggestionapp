@@ -15,33 +15,51 @@ class Base(db.Model):
 class Class(Base):
     __tablename__ = "Class"
 
-    name = db.Column(db.String, nullable=False)
+    name = db.Column(db.Text, nullable=False)
+    description = db.Column(db.Text)
 
-    def __init__(self):
-        pass
+    dependencies = db.relationship(
+        "Dependency", cascade="save-update, merge, delete")
+
+    def __init__(self, name=None, description=None):
+        self.name = name
+        self.description = description
 
     def __repr__(self):
         return "stuff"
 
 
-class Dependencies(Base):
-    __tablename__ = "Dependencies"
+class Dependency(Base):
+    __tablename__ = "Dependency"
 
-    class_id = db.Column(db.Integer, db.ForeignKey(Class.id))
+    src = db.Column("class_src_id", db.Integer, db.ForeignKey(Class.id))
+    target = db.Column("class_target_id", db.Integer, db.ForeignKey(Class.id))
 
-    def __init__(self):
-        pass
-
-
-class Prereq(Base):
-    __tablename__ = "Prereq"
-
-    def __init__(self):
-        pass
+    def __init__(self, src=None, target=None):
+        self.class_src_id = src
+        self.class_target_id = target
 
 
 class Major(Base):
     __tablename__ = "Major"
 
-    def __init__(self):
-        pass
+    department = db.Column(db.Text, nullable=False)
+    identifier = db.Column(db.Text, nullable=False)
+
+    prereqs = db.relationship(
+        "prereq", cascade="save-update, merge, delete")
+
+    def __init__(self, department=None, identifier=None):
+        self.department = department
+        self.identifier = identifier
+
+
+class Prereq(Base):
+    __tablename__ = "Prereq"
+
+    major_id = db.Column(db.Integer, db.ForeignKey(Major.id), nullable=False)
+    class_id = db.Column(db.Integer, db.ForeignKey(Class.id), nullable=False)
+
+    def __init__(self, major=None, class_id=None):
+        self.major_id = major
+        self.class_id = class_id
