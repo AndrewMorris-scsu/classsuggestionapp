@@ -1,13 +1,21 @@
 from flask import Flask, render_template
-from app.core.controllers import core as core_module
+from flask_sqlalchemy import SQLAlchemy
+from flask_socketio import SocketIO
 
 # Define the WSGI application object
 app = Flask(__name__)
 
-# Configurations
 app.config.from_object('config')
 
+db = SQLAlchemy(app)
+socketio = SocketIO(app)
+
+from .mod_core import core as core_module
+from .mod_api import api as api_module
+
+# Configurations
 app.register_blueprint(core_module)
+app.register_blueprint(api_module)
 
 
 # Sample HTTP error handling
@@ -17,3 +25,6 @@ def not_found(error):
 
 
 app.register_blueprint(core_module)
+app.register_blueprint(api_module)
+
+db.create_all()
