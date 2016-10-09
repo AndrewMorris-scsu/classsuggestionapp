@@ -24,7 +24,7 @@ def handle_fetch_data():
 
 @api.route("/fetch_major_count")
 def handle_fetch_major_count():
-    major = request.args.get("major")
+    major = request.args.get("data")
     count = db.session.query(Major.identifier).filter(
         Major.identifier == major).count()
     return jsonify(count)
