@@ -10,7 +10,6 @@ from app.mod_api.model import (
 with open('parse/major_courses.json') as handle:
     data = json.load(handle)
 
-    d = {}
     for cls, d in data.items():
         cls_dept = d["class_dept"]
         major_dept = d["major_dept"]
