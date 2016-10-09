@@ -32,4 +32,7 @@ def handle_fetch_major_count():
 
 @api.route("/fetch_majors")
 def handle_fetch_majors():
-    pass
+    majors = []
+    for major in db.session.query(Major.identifier).distinct():
+        majors.append(major.identifier)
+    return jsonify(majors)
